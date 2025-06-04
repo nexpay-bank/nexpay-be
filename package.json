@@ -26,11 +26,13 @@
   "homepage": "https://github.com/nexpay-bank/nexpay-be#readme",
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@types/node": "^22.15.29",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.28.0",
     "globals": "^16.2.0",
     "nodemon": "^3.1.10",
     "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1"
   },
   "dependencies": {
