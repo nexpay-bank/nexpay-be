@@ -1,0 +1,44 @@
+{
+  "name": "nexpay-be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "start-dev": "nodemon ./src/server.js",
+    "lint": "eslint ./src/*",
+    "autofix": "eslint ./src/* --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "npx drizzle-kit generate",
+    "migrate": "npx drizzle-kit migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nexpay-bank/nexpay-be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nexpay-bank/nexpay-be/issues"
+  },
+  "homepage": "https://github.com/nexpay-bank/nexpay-be#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "drizzle-kit": "^0.31.1",
+    "eslint": "^9.28.0",
+    "globals": "^16.2.0",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.19.4",
+    "typescript-eslint": "^8.33.1"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.4.0",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "postgres": "^3.4.7"
+  }
+}
