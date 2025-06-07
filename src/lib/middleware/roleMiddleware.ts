@@ -13,7 +13,7 @@ const adminOnly = async (request: Request, h: ResponseToolkit): Promise<Response
   return h.continue;
 };
 
-const workerOnly = async (request: Request, h: ResponseToolkit): Promise<ResponseObject | symbol> => {
+const userOnly = async (request: Request, h: ResponseToolkit): Promise<ResponseObject | symbol> => {
   const role = request.auth.credentials?.role;
 
   if (role !== 'user') {
@@ -26,4 +26,4 @@ const workerOnly = async (request: Request, h: ResponseToolkit): Promise<Respons
   return h.continue;
 };
 
-export { adminOnly, workerOnly };
+export { adminOnly, userOnly };

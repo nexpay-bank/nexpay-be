@@ -1,0 +1,41 @@
+import Joi from 'joi';
+
+// ----------- AUTH & USER -----------
+export const loginSchema = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required()
+});
+
+export const updatePhotoSchema = Joi.object({
+  avatar_url: Joi.string().uri().required()
+});
+
+export const addUserSchema = Joi.object({
+  username: Joi.string().min(3).required(),
+  password: Joi.string().min(6).required(),
+  role_id: Joi.string().required()
+});
+
+// ----------- ACCOUNT -----------
+export const createBankAccountSchema = Joi.object({
+  uuid: Joi.string().required(), // assumed as FK from USER
+  initialBalance: Joi.number().min(0).default(0)
+});
+
+// ----------- TRANSACTION -----------
+export const transferSchema = Joi.object({
+  from_account_id: Joi.number().required(),
+  to_account_id: Joi.number().required(),
+  amount: Joi.number().positive().required()
+});
+
+// ----------- BALANCE CHANGE (ADMIN) -----------
+export const modifyBalanceSchema = Joi.object({
+  amount: Joi.number().positive().required(),
+  note: Joi.string().allow('').optional()
+});
+
+// ----------- ROLE -----------
+export const roleSchema = Joi.object({
+  role: Joi.string().required()
+});

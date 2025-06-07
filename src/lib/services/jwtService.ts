@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-useless-catch */
 // lib/services/jwtService.ts
 import jwt, { SignOptions, JwtPayload } from "jsonwebtoken";
