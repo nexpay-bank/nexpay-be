@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import Hapi, { Request, ResponseToolkit } from "@hapi/hapi";
-import routes from "./routes/apiRoutes";
+import { routes } from "./routes/apiRoutes";
 
 const init = async () => {
   const server = Hapi.server({

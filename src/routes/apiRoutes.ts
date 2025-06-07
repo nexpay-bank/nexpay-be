@@ -10,7 +10,7 @@ const failAction = (request: any, h: any, err: any) => {
     return h.response({ error: err.details[0].message }).code(400).takeover();
 };
 
-export const bankRoutes: ServerRoute[] = [
+export const routes: ServerRoute[] = [
     // ---------- AUTH ----------
     {
         method: 'POST',
@@ -30,6 +30,22 @@ export const bankRoutes: ServerRoute[] = [
     },
 
     // ---------- NASABAH ----------
+    {
+        method: 'POST',
+        path: '/users/register',
+        handler: bankController.registerUser,  // otomatis role nasabah
+        options: {
+            validate: { payload: bankSchemas.registerUser, failAction }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/users/{uuid}/balance/{account_id}',
+        handler: adminController.getUserBalance,
+        options: {
+            pre: [authMiddleware, userOnly]
+        }
+    },
     {
         method: 'POST',
         path: '/bank-accounts',
