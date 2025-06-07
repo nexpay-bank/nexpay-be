@@ -6,6 +6,11 @@ export const loginSchema = Joi.object({
   password: Joi.string().required()
 });
 
+export const registerUser = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required() 
+})
+
 export const updatePhotoSchema = Joi.object({
   avatar: Joi.any()
     .meta({ swaggerType: 'file' })
