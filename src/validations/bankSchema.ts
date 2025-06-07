@@ -7,7 +7,18 @@ export const loginSchema = Joi.object({
 });
 
 export const updatePhotoSchema = Joi.object({
-  avatar_url: Joi.string().uri().required()
+  avatar: Joi.any()
+    .meta({ swaggerType: 'file' })
+    .required()
+    .description('Avatar image file')
+    .custom((value, helpers) => {
+      if (value._data && value._data.length > 2 * 1024 * 1024) {
+        return helpers.error('file.max');
+      }
+      return value;
+    }, 'Max file size validation')
+}).messages({
+  'file.max': 'Ukuran gambar tidak boleh lebih dari 2MB'
 });
 
 export const addUserSchema = Joi.object({
