@@ -30,6 +30,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.29",
+    "@vercel/node": "^5.2.1",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.28.0",
     "globals": "^16.2.0",
