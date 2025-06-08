@@ -1,13 +1,15 @@
-import serverless from "serverless-http";
+// api/index.ts
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createServer } from "../src/server";
 
-let handler: any;
+let cachedServer: Awaited<ReturnType<typeof createServer>> | null = null;
 
-export default async function (req: any, res: any) {
-  if (!handler) {
-    const server = await createServer();
-    await server.initialize();
-    handler = serverless(server.listener, { framework: "hapi" });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (!cachedServer) {
+    cachedServer = await createServer();
+    await cachedServer.initialize();
   }
-  return handler(req, res);
+
+  // Pakai server.listener langsung!
+  cachedServer.listener.emit("request", req, res);
 }

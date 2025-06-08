@@ -42,12 +42,12 @@
   "dependencies": {
     "@hapi/hapi": "^21.4.0",
     "@supabase/supabase-js": "^2.50.0",
+    "@vercel/node": "^5.2.1",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "postgres": "^3.4.7",
-    "serverless-http": "^3.2.0"
+    "postgres": "^3.4.7"
   }
 }
