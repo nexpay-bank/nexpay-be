@@ -2,7 +2,7 @@
 import { ServerRoute } from "@hapi/hapi";
 import * as userController from "../controllers/userController";
 import * as bankController from "../controllers/bankController";
-// import * as adminController from '../controllers/adminController';
+import * as adminController from "../controllers/adminController";
 import * as bankSchemas from "../validations/bankSchema";
 import authMiddleware from "../lib/middleware/authMiddleware";
 import { userOnly, adminOnly } from "../lib/middleware/roleMiddleware";
@@ -44,7 +44,7 @@ export const routes: ServerRoute[] = [
   {
     method: "POST",
     path: "/users/register",
-    handler: userController.registerUser, // otomatis role nasabah
+    handler: userController.registerUser, // otomatis role user
     options: {
       validate: { payload: bankSchemas.registerUser, failAction },
     },
@@ -120,46 +120,46 @@ export const routes: ServerRoute[] = [
   },
 
   // ---------- ADMIN ----------
-  // {
-  //     method: 'GET',
-  //     path: '/admin/users/{uuid}/balance',
-  //     handler: adminController.getUserBalance,
-  //     options: {
-  //         pre: [authMiddleware, adminOnly]
-  //     }
-  // },
-  // {
-  //     method: 'GET',
-  //     path: '/admin/users/{uuid}/balance',
-  //     handler: adminController.getUserBalance,
-  //     options: {
-  //         pre: [authMiddleware, adminOnly]
-  //     }
-  // },
-  // {
-  //     method: 'POST',
-  //     path: '/admin/users/{user_id}/add-balance',
-  //     handler: adminController.addBalance,
-  //     options: {
-  //         pre: [authMiddleware, adminOnly],
-  //         validate: { payload: bankSchemas.modifyBalanceSchema, failAction }
-  //     }
-  // },
-  // {
-  //     method: 'POST',
-  //     path: '/admin/users/{user_id}/deduct-balance',
-  //     handler: adminController.deductBalance,
-  //     options: {
-  //         pre: [authMiddleware, adminOnly],
-  //         validate: { payload: bankSchemas.modifyBalanceSchema, failAction }
-  //     }
-  // },
-  // {
-  //     method: 'DELETE',
-  //     path: '/admin/users/{user_id}',
-  //     handler: adminController.deleteUserByAdmin,
-  //     options: {
-  //         pre: [authMiddleware, adminOnly]
-  //     }
-  // }
+  {
+    method: "GET",
+    path: "/admin/users/account",
+    handler: adminController.getAllUserAccount,
+    options: {
+      pre: [authMiddleware, adminOnly],
+    },
+  },
+  {
+    method: "GET",
+    path: "/admin/users/{uuid}/balance",
+    handler: adminController.getUserBalance,
+    options: {
+      pre: [authMiddleware, adminOnly],
+    },
+  },
+  {
+    method: "POST",
+    path: "/admin/users/{user_id}/add-balance",
+    handler: adminController.addBalance,
+    options: {
+      pre: [authMiddleware, adminOnly],
+      validate: { payload: bankSchemas.modifyBalanceSchema, failAction },
+    },
+  },
+  {
+    method: "POST",
+    path: "/admin/users/{user_id}/deduct-balance",
+    handler: adminController.deductBalance,
+    options: {
+      pre: [authMiddleware, adminOnly],
+      validate: { payload: bankSchemas.modifyBalanceSchema, failAction },
+    },
+  },
+  {
+    method: "DELETE",
+    path: "/admin/users/{user_id}",
+    handler: adminController.deleteUserByAdmin,
+    options: {
+      pre: [authMiddleware, adminOnly],
+    },
+  },
 ];

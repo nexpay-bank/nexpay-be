@@ -215,10 +215,10 @@ export const transactionHistory = async (
 
     return h
       .response({
-        transactions: transactionsList,
         page,
         total,
         totalPages: Math.ceil(total / limit),
+        transactions: transactionsList,
       })
       .code(200);
   } catch (error) {
@@ -270,10 +270,10 @@ export const mutationHistoryHandler = async (
 
     return h
       .response({
-        mutations: mutationsList,
         page,
         total,
         totalPages: Math.ceil(total / limit),
+        mutations: mutationsList,
       })
       .code(200);
   } catch (error) {

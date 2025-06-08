@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // schema.ts
 import { sql } from "drizzle-orm";
-import { pgTable, varchar, serial, integer, decimal, timestamp, primaryKey, boolean, text } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  varchar,
+  serial,
+  integer,
+  decimal,
+  timestamp,
+  primaryKey,
+  boolean,
+  text,
+} from "drizzle-orm/pg-core";
 
 // Tabel ROLE
 export const roles = pgTable("role", {
@@ -18,10 +28,9 @@ export const users = pgTable("user", {
     onDelete: "set null",
     onUpdate: "cascade",
   }),
-  avatarUrl: text("avatar_url").default(sql`NULL`), 
+  avatarUrl: text("avatar_url").default(sql`NULL`),
   isActive: boolean("is_active").notNull().default(true), // <-- Tambahkan ini
 });
-
 
 // Tabel ACCOUNT
 export const accounts = pgTable("account", {
