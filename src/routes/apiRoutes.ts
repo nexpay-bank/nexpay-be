@@ -69,7 +69,7 @@ export const routes: ServerRoute[] = [
     {
         method: 'GET',
         path: '/users/{uuid}/balance/{account_id}',
-        handler: adminController.getUserBalance,
+        handler: bankController.getUserBalance,
         options: {
             pre: [authMiddleware, userOnly]
         }
