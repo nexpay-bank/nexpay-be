@@ -15,6 +15,13 @@
       "when": 1749293405738,
       "tag": "0001_faithful_masked_marvel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1749375350219,
+      "tag": "0002_military_ravenous",
+      "breakpoints": true
     }
   ]
 }

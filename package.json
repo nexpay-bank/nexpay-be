@@ -26,6 +26,7 @@
   "homepage": "https://github.com/nexpay-bank/nexpay-be#readme",
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.29",
     "drizzle-kit": "^0.31.1",
@@ -39,6 +40,7 @@
   "dependencies": {
     "@hapi/hapi": "^21.4.0",
     "@supabase/supabase-js": "^2.50.0",
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
     "joi": "^17.13.3",

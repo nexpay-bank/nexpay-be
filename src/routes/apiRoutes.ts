@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ServerRoute } from '@hapi/hapi';
+import * as userController from '../controllers/userController';
 import * as bankController from '../controllers/bankController';
 import * as adminController from '../controllers/adminController';
 import * as bankSchemas from '../validations/bankSchema';
@@ -11,11 +12,21 @@ const failAction = (request: any, h: any, err: any) => {
 };
 
 export const routes: ServerRoute[] = [
-    // ---------- AUTH ----------
+    // --------------------- HOMEPAGE ---------------------
+    {
+        method: 'GET',
+        path: '/',
+        handler: async (request, h) => {
+            const welcomeMessage = 'Welcome to our Nexpay APIs';
+            return h.response({ status: 'success', message: welcomeMessage }).code(200);
+        }
+    },
+
+    // ---------- USER ----------
     {
         method: 'POST',
         path: '/login',
-        handler: bankController.login,
+        handler: userController.login,
         options: {
             validate: { payload: bankSchemas.loginSchema, failAction }
         }
@@ -23,21 +34,38 @@ export const routes: ServerRoute[] = [
     {
         method: 'POST',
         path: '/logout',
-        handler: bankController.logout,
+        handler: userController.logout,
         options: {
             pre: [authMiddleware]
         }
     },
-
-    // ---------- NASABAH ----------
     {
         method: 'POST',
         path: '/users/register',
-        handler: bankController.registerUser,  // otomatis role nasabah
+        handler: userController.registerUser,  // otomatis role nasabah
         options: {
             validate: { payload: bankSchemas.registerUser, failAction }
         }
     },
+    {
+        method: 'PUT',
+        path: '/users/photo',
+        handler: userController.updateProfilePhoto,
+        options: {
+            pre: [authMiddleware, userOnly],
+            validate: { payload: bankSchemas.updatePhotoSchema, failAction }
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/users/self',
+        handler: userController.deleteOwnAccount,
+        options: {
+            pre: [authMiddleware, userOnly]
+        }
+    },
+
+    // ---------- NASABAH ----------
     {
         method: 'GET',
         path: '/users/{uuid}/balance/{account_id}',
@@ -76,23 +104,6 @@ export const routes: ServerRoute[] = [
         method: 'GET',
         path: '/mutations/history',
         handler: bankController.mutationHistory,
-        options: {
-            pre: [authMiddleware, userOnly]
-        }
-    },
-    {
-        method: 'PUT',
-        path: '/users/photo',
-        handler: bankController.updateProfilePhoto,
-        options: {
-            pre: [authMiddleware, userOnly],
-            validate: { payload: bankSchemas.updatePhotoSchema, failAction }
-        }
-    },
-    {
-        method: 'DELETE',
-        path: '/users/self',
-        handler: bankController.deleteOwnAccount,
         options: {
             pre: [authMiddleware, userOnly]
         }
