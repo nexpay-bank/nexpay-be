@@ -56,8 +56,18 @@ export const login = async (request: Request, h: ResponseToolkit) => {
     return h.response({ error: 'Password salah' }).code(401);
   }
 
+  if (!user.roleId) {
+    return h.response({ error: 'User has no role assigned' }).code(400);
+  }
+
+  const [role] = await db
+    .select()
+    .from(roles)
+    .where(eq(roles.roleId, user.roleId))
+    .limit(1);
+
   const token = jwt.sign(
-    { user_id: user.uuid, role: user.roleId },
+    { uuid: user.uuid, username: user.username, role: role.role },
     process.env.JWT_SECRET!,
     { expiresIn: '1d' }
   );

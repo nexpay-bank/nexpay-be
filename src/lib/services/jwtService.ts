@@ -9,7 +9,7 @@ if (!JWT_SECRET) {
 
 interface TokenPayload {
     uuid: string;
-    name: string;
+    username: string;
     role: string;
 }
 
