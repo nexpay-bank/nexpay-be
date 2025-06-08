@@ -1,0 +1,1 @@
+ALTER TABLE "mutation_history" ALTER COLUMN "action_type" DROP NOT NULL;

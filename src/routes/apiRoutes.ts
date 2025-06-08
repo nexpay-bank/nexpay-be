@@ -7,7 +7,7 @@ import * as bankSchemas from '../validations/bankSchema';
 import authMiddleware from '../lib/middleware/authMiddleware';
 import { userOnly, adminOnly } from '../lib/middleware/roleMiddleware';
 
-const failAction = (request: any, h: any, err: any) => {
+const failAction = (_request: any, h: any, err: any) => {
     return h.response({ error: err.details[0].message }).code(400).takeover();
 };
 
@@ -16,7 +16,7 @@ export const routes: ServerRoute[] = [
     {
         method: 'GET',
         path: '/',
-        handler: async (request, h) => {
+        handler: async (_request, h) => {
             const welcomeMessage = 'Welcome to our Nexpay APIs';
             return h.response({ status: 'success', message: welcomeMessage }).code(200);
         }

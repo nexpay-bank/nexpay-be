@@ -58,7 +58,7 @@ export const mutationHistory = pgTable("mutation_history", {
     onDelete: "cascade",
     onUpdate: "cascade",
   }),
-  actionType: varchar("action_type", { length: 50 }).notNull(),
+  actionType: varchar("action_type", { length: 50 }),
   amount: decimal("amount", { precision: 12, scale: 2 }).notNull(),
   timestamp: timestamp("timestamp").notNull(),
   note: varchar("note", { length: 255 }).notNull(),
