@@ -42,6 +42,14 @@ export const routes: ServerRoute[] = [
     },
   },
   {
+    method: "GET",
+    path: "/users/info",
+    handler: userController.userInfo,
+    options: {
+      pre: [authMiddleware],
+    },
+  },
+  {
     method: "POST",
     path: "/users/register",
     handler: userController.registerUser, // otomatis role user
@@ -55,7 +63,17 @@ export const routes: ServerRoute[] = [
     handler: userController.updateProfilePhoto,
     options: {
       pre: [authMiddleware, userOnly],
-      validate: { payload: bankSchemas.updatePhotoSchema, failAction },
+      payload: {
+        output: "stream",
+        parse: true,
+        multipart: true,
+        maxBytes: 2 * 1024 * 1024,
+        allow: "multipart/form-data",
+      },
+      validate: {
+        payload: bankSchemas.updatePhotoSchema,
+        failAction,
+      },
     },
   },
   {

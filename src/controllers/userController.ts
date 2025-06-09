@@ -107,6 +107,33 @@ export const logout = async (_request: Request, h: ResponseToolkit) => {
     .code(200);
 };
 
+export const userInfo = async (request: Request, h: ResponseToolkit) => {
+  const uuid = request.auth.credentials.uuid as string;
+
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(eq(users.uuid, uuid))
+    .limit(1);
+
+  if (!user) {
+    return h.response({ error: "User not found" }).code(404);
+  }
+
+  return h
+    .response({
+      message: "User info retrieved successfully",
+      data: {
+        uuid: user.uuid,
+        username: user.username,
+        roleId: user.roleId,
+        avatarUrl: user.avatarUrl,
+        isActive: user.isActive,
+      },
+    })
+    .code(200);
+};
+
 export const updateProfilePhoto = async (
   request: Request,
   h: ResponseToolkit
@@ -120,7 +147,7 @@ export const updateProfilePhoto = async (
 
   const buffer = avatar._data;
   const fileExt = avatar.hapi.filename.split(".").pop();
-  const fileName = `avatars/${userId}-${randomUUID()}.${fileExt}`;
+  const fileName = `${userId}-${randomUUID()}.${fileExt}`;
 
   try {
     const { error } = await supabase.storage
@@ -135,7 +162,7 @@ export const updateProfilePhoto = async (
       return h.response({ error: "Gagal mengupload gambar" }).code(500);
     }
 
-    const avatarUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/avatars-profile/${fileName}`;
+    const avatarUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/avatars/${fileName}`;
 
     const [updatedUser] = await db
       .update(users)
